@@ -188,7 +188,7 @@ export const businessInfo = {
   name: 'M.R.S Traders',
   owner: 'M. Raja',
   category: 'Electrical, Plumbing & Lighting Store',
-  whatsappNumber: '9943459843',
-  whatsappLink: 'https://wa.me/919943459843',
+  whatsappNumber: '8489820801',
+  whatsappLink: 'https://wa.me/918489820801',
   address: '3/1, Azath Nagar 2nd Street, Ayyampet, Thanjavur, Tamil Nadu - 614201'
 };
