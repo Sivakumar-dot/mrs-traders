@@ -1,0 +1,95 @@
+<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+  <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+    <div class="rounded-[2rem] border border-white/10 bg-[var(--color-panel)] p-8 shadow-soft">
+      <span class="section-kicker">CONTACT</span>
+      <h1 class="section-title mt-4">Visit or message {{ business.name }}</h1>
+
+      <div class="mt-8 space-y-6">
+        <div>
+          <p class="text-sm font-semibold tracking-[0.18em] text-[var(--color-accent)]">ADDRESS</p>
+          <p class="mt-2 text-lg leading-8 text-slate-200">{{ business.address }}</p>
+        </div>
+        <div>
+          <p class="text-sm font-semibold tracking-[0.18em] text-[var(--color-accent)]">WHATSAPP</p>
+          <a
+            class="mt-2 inline-block text-lg font-semibold text-white transition hover:text-[var(--color-accent)]"
+            [href]="business.whatsappLink"
+            target="_blank"
+            rel="noreferrer"
+          >
+            +91 {{ business.whatsappNumber }}
+          </a>
+        </div>
+        <div>
+          <p class="text-sm font-semibold tracking-[0.18em] text-[var(--color-accent)]">BUSINESS HOURS</p>
+          <div class="mt-3 space-y-3">
+            @for (item of businessHours; track item.day) {
+              <div class="flex items-center justify-between gap-4 rounded-2xl border border-white/8 bg-white/4 px-4 py-3">
+                <span class="text-slate-200">{{ item.day }}</span>
+                <span class="text-sm font-semibold text-white">{{ item.hours }}</span>
+              </div>
+            }
+          </div>
+        </div>
+        <div>
+          <p class="text-sm font-semibold tracking-[0.18em] text-[var(--color-accent)]">MAP LOCATION</p>
+          <div
+            class="mt-3 flex min-h-48 items-center justify-center rounded-[1.75rem] border border-dashed border-white/15 bg-[linear-gradient(135deg,rgba(11,35,74,0.8),rgba(244,148,42,0.1))] p-6 text-center text-slate-300"
+          >
+            Google Maps embed placeholder for Ayyampet, Thanjavur
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-[2rem] border border-white/10 bg-white/6 p-8 shadow-soft">
+      <h2 class="text-3xl font-[var(--font-heading)] font-semibold text-white">Send an Enquiry</h2>
+      <p class="mt-4 text-base leading-7 text-slate-300">
+        This contact form is a UI placeholder and can be connected to email, CRM, or WhatsApp
+        workflow later.
+      </p>
+
+      <form class="mt-8 grid gap-5 sm:grid-cols-2">
+        <label class="block">
+          <span class="mb-2 block text-sm font-medium text-slate-200">Full Name</span>
+          <input
+            class="w-full rounded-2xl border border-white/10 bg-[var(--color-night-soft)] px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-[var(--color-accent)]"
+            type="text"
+            placeholder="Your name"
+          />
+        </label>
+        <label class="block">
+          <span class="mb-2 block text-sm font-medium text-slate-200">Phone Number</span>
+          <input
+            class="w-full rounded-2xl border border-white/10 bg-[var(--color-night-soft)] px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-[var(--color-accent)]"
+            type="tel"
+            placeholder="Your number"
+          />
+        </label>
+        <label class="block sm:col-span-2">
+          <span class="mb-2 block text-sm font-medium text-slate-200">Product Requirement</span>
+          <input
+            class="w-full rounded-2xl border border-white/10 bg-[var(--color-night-soft)] px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-[var(--color-accent)]"
+            type="text"
+            placeholder="Electrical, plumbing, lighting, or fittings"
+          />
+        </label>
+        <label class="block sm:col-span-2">
+          <span class="mb-2 block text-sm font-medium text-slate-200">Message</span>
+          <textarea
+            class="min-h-36 w-full rounded-2xl border border-white/10 bg-[var(--color-night-soft)] px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-[var(--color-accent)]"
+            placeholder="Tell us what you need"
+          ></textarea>
+        </label>
+        <div class="sm:col-span-2">
+          <button
+            class="w-full rounded-full bg-[var(--color-accent)] px-6 py-4 text-base font-bold text-slate-950 transition hover:bg-[var(--color-accent-soft)]"
+            type="button"
+          >
+            Submit Enquiry
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

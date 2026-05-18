@@ -1,0 +1,23 @@
+<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+  <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <span class="section-kicker">GALLERY</span>
+      <h1 class="section-title mt-4">A visual glimpse into premium lighting and showroom style</h1>
+    </div>
+    <p class="max-w-2xl text-base leading-7 text-slate-300">
+      Placeholder visuals showcase the type of polished electrical and lighting presentation that
+      suits a modern local business brand.
+    </p>
+  </div>
+  <div class="mt-10 grid auto-rows-[220px] gap-5 sm:grid-cols-2">
+    @for (item of gallery; track item.alt) {
+      <article class="group {{ item.height }} overflow-hidden rounded-[1.9rem] border border-white/10 bg-white/5">
+        <img
+          class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          [src]="item.image"
+          [alt]="item.alt"
+        />
+      </article>
+    }
+  </div>
+</section>

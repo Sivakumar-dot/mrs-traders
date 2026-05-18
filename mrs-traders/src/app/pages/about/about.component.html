@@ -1,0 +1,37 @@
+<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+  <div class="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+    <div class="relative">
+      <div class="absolute -left-5 top-10 h-24 w-24 rounded-full bg-[var(--color-accent)]/20 blur-3xl"></div>
+      <div class="rounded-[2rem] border border-white/10 bg-white/6 p-4 shadow-soft">
+        <img
+          class="h-[460px] w-full rounded-[1.5rem] object-cover"
+          src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80"
+          alt="Elegant modern lighting and premium retail presentation"
+        />
+      </div>
+    </div>
+
+    <div>
+      <span class="section-kicker">ABOUT US</span>
+      <h1 class="section-title mt-4">A trusted local store built around quality and guidance</h1>
+      <p class="mt-6 text-lg leading-8 text-slate-300">
+        {{ business.name }} is a trusted neighborhood destination for electrical items, plumbing
+        essentials, and lighting products. We focus on dependable quality, practical advice, and a
+        welcoming customer experience for households, builders, and local businesses.
+      </p>
+      <p class="mt-4 text-lg leading-8 text-slate-300">
+        Led by <span class="font-semibold text-white">{{ business.owner }}</span>, the store serves
+        the Ayyampet community with carefully selected products, honest pricing, and responsive
+        service that values long-term trust over one-time sales.
+      </p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        @for (stat of stats; track stat.label) {
+          <article class="rounded-[1.5rem] border border-white/10 bg-[var(--color-panel)] p-5">
+            <p class="text-2xl font-extrabold text-[var(--color-accent)]">{{ stat.value }}</p>
+            <p class="mt-2 text-sm text-slate-300">{{ stat.label }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>
