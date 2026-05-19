@@ -1,0 +1,177 @@
+<section
+  class="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(8,145,178,0.14),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(15,23,42,0.08),_transparent_28%),linear-gradient(180deg,_#f8fafc_0%,_#eef2ff_100%)] px-4 py-8 text-slate-900 sm:px-6 lg:px-8"
+>
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-8 flex flex-col gap-4 rounded-[2rem] border border-white/70 bg-white/85 p-6 shadow-[0_25px_70px_rgba(15,23,42,0.12)] backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:p-8">
+      <div>
+        <span
+          class="inline-flex rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-700"
+        >
+          Protected Admin Area
+        </span>
+        <h1 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950">
+          Company settings
+        </h1>
+        <p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+          Update the core business information used by your website and backend services.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+        (click)="logout()"
+      >
+        Logout
+      </button>
+    </div>
+
+    <div class="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.12)] backdrop-blur sm:p-8">
+      @if (isLoading()) {
+        <div class="flex min-h-64 flex-col items-center justify-center gap-4 text-slate-500">
+          <span
+            class="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-slate-900"
+          ></span>
+          <p class="text-sm font-medium">Loading company settings...</p>
+        </div>
+      } @else {
+        <form class="space-y-6" [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
+          @if (errorMessage()) {
+            <div class="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+              {{ errorMessage() }}
+            </div>
+          }
+
+          @if (successMessage()) {
+            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+              {{ successMessage() }}
+            </div>
+          }
+
+          <div class="grid gap-5 md:grid-cols-2">
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700" for="companyName">Company Name</label>
+              <input
+                id="companyName"
+                type="text"
+                formControlName="companyName"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              />
+              @if (hasError('companyName')) {
+                <p class="text-sm text-rose-600">Company name is required.</p>
+              }
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700" for="ownerName">Owner Name</label>
+              <input
+                id="ownerName"
+                type="text"
+                formControlName="ownerName"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              />
+              @if (hasError('ownerName')) {
+                <p class="text-sm text-rose-600">Owner name is required.</p>
+              }
+            </div>
+
+            <div class="space-y-2 md:col-span-2">
+              <label class="text-sm font-medium text-slate-700" for="address">Address</label>
+              <textarea
+                id="address"
+                rows="4"
+                formControlName="address"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              ></textarea>
+              @if (hasError('address')) {
+                <p class="text-sm text-rose-600">Address is required.</p>
+              }
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700" for="mobileNumber">Mobile Number</label>
+              <input
+                id="mobileNumber"
+                type="tel"
+                formControlName="mobileNumber"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              />
+              @if (hasError('mobileNumber')) {
+                <p class="text-sm text-rose-600">Mobile number is required.</p>
+              }
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700" for="whatsappNumber">WhatsApp Number</label>
+              <input
+                id="whatsappNumber"
+                type="tel"
+                formControlName="whatsappNumber"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              />
+              @if (hasError('whatsappNumber')) {
+                <p class="text-sm text-rose-600">WhatsApp number is required.</p>
+              }
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700" for="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              />
+              @if (hasError('email')) {
+                <p class="text-sm text-rose-600">Enter a valid email address.</p>
+              }
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-slate-700" for="googleMapUrl">Google Map URL</label>
+              <input
+                id="googleMapUrl"
+                type="url"
+                formControlName="googleMapUrl"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              />
+              @if (hasError('googleMapUrl')) {
+                <p class="text-sm text-rose-600">Google Map URL is required.</p>
+              }
+            </div>
+
+            <div class="space-y-2 md:col-span-2">
+              <label class="text-sm font-medium text-slate-700" for="businessHours">Business Hours</label>
+              <textarea
+                id="businessHours"
+                rows="4"
+                formControlName="businessHours"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              ></textarea>
+              @if (hasError('businessHours')) {
+                <p class="text-sm text-rose-600">Business hours are required.</p>
+              }
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button
+              type="submit"
+              class="inline-flex min-w-40 items-center justify-center gap-3 rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+              [disabled]="isSaving()"
+            >
+              @if (isSaving()) {
+                <span
+                  class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                ></span>
+                <span>Saving...</span>
+              } @else {
+                <span>Update Settings</span>
+              }
+            </button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>

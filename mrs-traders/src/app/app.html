@@ -1,70 +1,36 @@
 <div class="min-h-screen bg-[var(--color-night)] text-white">
-  <header
-    class="sticky top-0 z-50 border-b border-white/10 bg-[color:rgba(6,21,48,0.86)] backdrop-blur-xl"
-  >
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-      <a class="flex items-center gap-3" routerLink="/" aria-label="M.R.S Traders Home">
-        <span
-          class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-soft)] text-lg font-extrabold text-slate-950 shadow-[0_12px_35px_rgba(244,148,42,0.35)]"
-        >
-          MRS
-        </span>
-        <span class="block">
-          <span class="block font-[var(--font-heading)] text-2xl font-semibold tracking-[0.08em]">
-            {{ business.name }}
+  @if (!isAdminRoute()) {
+    <header
+      class="sticky top-0 z-50 border-b border-white/10 bg-[color:rgba(6,21,48,0.86)] backdrop-blur-xl"
+    >
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a class="flex items-center gap-3" routerLink="/" aria-label="M.R.S Traders Home">
+          <span
+            class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-soft)] text-lg font-extrabold text-slate-950 shadow-[0_12px_35px_rgba(244,148,42,0.35)]"
+          >
+            MRS
           </span>
-          <span class="text-sm text-slate-300">{{ business.category }}</span>
-        </span>
-      </a>
-
-      <app-menu [items]="navItems" ariaLabel="Primary" />
-
-      <div class="hidden items-center gap-3 lg:flex">
-        <a
-          class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-          routerLink="/contact"
-        >
-          Visit Store
+          <span class="block">
+            <span
+              class="block font-[var(--font-heading)] text-2xl font-semibold tracking-[0.08em]"
+            >
+              {{ business.name }}
+            </span>
+            <span class="text-sm text-slate-300">{{ business.category }}</span>
+          </span>
         </a>
-        <a
-          class="rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-bold text-slate-950 shadow-[0_18px_35px_rgba(244,148,42,0.28)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-soft)]"
-          [href]="business.whatsappLink"
-          target="_blank"
-          rel="noreferrer"
-        >
-          WhatsApp Now
-        </a>
-      </div>
 
-      <button
-        class="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white lg:hidden"
-        type="button"
-        [attr.aria-label]="mobileMenuLabel()"
-        [attr.aria-expanded]="isMenuOpen()"
-        (click)="toggleMenu()"
-      >
-        <span class="sr-only">Toggle navigation</span>
-        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          @if (!isMenuOpen()) {
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
-          } @else {
-            <path stroke-linecap="round" stroke-linejoin="round" d="m6 6 12 12M18 6 6 18" />
-          }
-        </svg>
-      </button>
-    </div>
+        <app-menu [items]="navItems" ariaLabel="Primary" />
 
-    @if (isMenuOpen()) {
-      <div class="border-t border-white/10 bg-[color:rgba(6,21,48,0.98)] px-4 py-4 lg:hidden">
-        <app-menu
-          [items]="navItems"
-          [mobile]="true"
-          ariaLabel="Mobile"
-          (itemSelected)="closeMenu()"
-        />
-        <div class="mx-auto mt-3 flex max-w-7xl flex-col gap-3">
+        <div class="hidden items-center gap-3 lg:flex">
           <a
-            class="rounded-2xl bg-[var(--color-accent)] px-4 py-3 text-center text-sm font-bold text-slate-950"
+            class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+            routerLink="/contact"
+          >
+            Visit Store
+          </a>
+          <a
+            class="rounded-full bg-[var(--color-accent)] px-5 py-3 text-sm font-bold text-slate-950 shadow-[0_18px_35px_rgba(244,148,42,0.28)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-soft)]"
             [href]="business.whatsappLink"
             target="_blank"
             rel="noreferrer"
@@ -72,57 +38,97 @@
             WhatsApp Now
           </a>
         </div>
+
+        <button
+          class="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white lg:hidden"
+          type="button"
+          [attr.aria-label]="mobileMenuLabel()"
+          [attr.aria-expanded]="isMenuOpen()"
+          (click)="toggleMenu()"
+        >
+          <span class="sr-only">Toggle navigation</span>
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            @if (!isMenuOpen()) {
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+            } @else {
+              <path stroke-linecap="round" stroke-linejoin="round" d="m6 6 12 12M18 6 6 18" />
+            }
+          </svg>
+        </button>
       </div>
-    }
-  </header>
+
+      @if (isMenuOpen()) {
+        <div class="border-t border-white/10 bg-[color:rgba(6,21,48,0.98)] px-4 py-4 lg:hidden">
+          <app-menu
+            [items]="navItems"
+            [mobile]="true"
+            ariaLabel="Mobile"
+            (itemSelected)="closeMenu()"
+          />
+          <div class="mx-auto mt-3 flex max-w-7xl flex-col gap-3">
+            <a
+              class="rounded-2xl bg-[var(--color-accent)] px-4 py-3 text-center text-sm font-bold text-slate-950"
+              [href]="business.whatsappLink"
+              target="_blank"
+              rel="noreferrer"
+            >
+              WhatsApp Now
+            </a>
+          </div>
+        </div>
+      }
+    </header>
+  }
 
   <main>
     <router-outlet />
   </main>
 
-  <footer class="border-t border-white/10 bg-[color:rgba(4,14,32,0.95)]">
-    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.4fr_0.6fr] lg:px-8">
-      <div>
-        <h3 class="font-[var(--font-heading)] text-3xl font-semibold text-white">{{ business.name }}</h3>
-        <p class="mt-4 max-w-md leading-7 text-slate-300">
-          Premium local branding for electrical, plumbing, and lighting essentials in Ayyampet,
-          Thanjavur.
-        </p>
-      </div>
-      <div>
-        <p class="text-sm font-semibold tracking-[0.18em] text-[var(--color-accent)]">CONNECT</p>
-        <div class="mt-4 flex items-center gap-3">
-          <a
-            class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            [href]="business.whatsappLink"
-            aria-label="WhatsApp"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.7 11.7 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.4Zm-8.4 18.2h-.1a9.7 9.7 0 0 1-4.9-1.3l-.4-.2-3.8 1 1-3.7-.2-.4a9.7 9.7 0 0 1-1.5-5.2C2.3 6.5 6.6 2.2 12 2.2c2.6 0 5 1 6.8 2.8a9.5 9.5 0 0 1 2.8 6.8c0 5.4-4.3 9.8-9.5 9.9Zm5.4-7.3c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1l-.6.8c-.2.3-.4.3-.7.1-1.8-.9-3-1.7-4.2-3.8-.3-.5 0-.7.2-.9l.5-.6.3-.5c.1-.2.1-.4 0-.6-.1-.1-.7-1.6-1-2.2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.9.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.7-.7 1.9-1.5.2-.8.2-1.4.2-1.5 0-.1-.1-.2-.4-.3Z"
-              />
-            </svg>
-          </a>
-          <a
-            class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
-            routerLink="/contact"
-            aria-label="Location"
-          >
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
-              <circle cx="12" cy="10" r="2.5" />
-            </svg>
-          </a>
+  @if (!isAdminRoute()) {
+    <footer class="border-t border-white/10 bg-[color:rgba(4,14,32,0.95)]">
+      <div class="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.4fr_0.6fr] lg:px-8">
+        <div>
+          <h3 class="font-[var(--font-heading)] text-3xl font-semibold text-white">{{ business.name }}</h3>
+          <p class="mt-4 max-w-md leading-7 text-slate-300">
+            Premium local branding for electrical, plumbing, and lighting essentials in Ayyampet,
+            Thanjavur.
+          </p>
+        </div>
+        <div>
+          <p class="text-sm font-semibold tracking-[0.18em] text-[var(--color-accent)]">CONNECT</p>
+          <div class="mt-4 flex items-center gap-3">
+            <a
+              class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+              [href]="business.whatsappLink"
+              aria-label="WhatsApp"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.7 11.7 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.5-8.4Zm-8.4 18.2h-.1a9.7 9.7 0 0 1-4.9-1.3l-.4-.2-3.8 1 1-3.7-.2-.4a9.7 9.7 0 0 1-1.5-5.2C2.3 6.5 6.6 2.2 12 2.2c2.6 0 5 1 6.8 2.8a9.5 9.5 0 0 1 2.8 6.8c0 5.4-4.3 9.8-9.5 9.9Zm5.4-7.3c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1l-.6.8c-.2.3-.4.3-.7.1-1.8-.9-3-1.7-4.2-3.8-.3-.5 0-.7.2-.9l.5-.6.3-.5c.1-.2.1-.4 0-.6-.1-.1-.7-1.6-1-2.2-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.4 3.3c.2.2 2.3 3.5 5.5 4.9.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.7-.7 1.9-1.5.2-.8.2-1.4.2-1.5 0-.1-.1-.2-.4-.3Z"
+                />
+              </svg>
+            </a>
+            <a
+              class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+              routerLink="/contact"
+              aria-label="Location"
+            >
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
+                <circle cx="12" cy="10" r="2.5" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="border-t border-white/8">
-      <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-sm text-slate-400 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <p>&copy; {{ currentYear }} {{ business.name }}. All rights reserved.</p>
-        <p>{{ business.category }} | Ayyampet, Thanjavur</p>
+      <div class="border-t border-white/8">
+        <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-5 text-sm text-slate-400 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <p>&copy; {{ currentYear }} {{ business.name }}. All rights reserved.</p>
+          <p>{{ business.category }} | Ayyampet, Thanjavur</p>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  }
 </div>

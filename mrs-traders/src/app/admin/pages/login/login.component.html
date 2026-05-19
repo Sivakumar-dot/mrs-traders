@@ -1,0 +1,125 @@
+<section
+  class="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.16),_transparent_30%),linear-gradient(180deg,_#f8fafc_0%,_#e2e8f0_100%)] px-4 py-10 text-slate-900 sm:px-6 lg:px-8"
+>
+  <div class="mx-auto flex min-h-[calc(100vh-5rem)] max-w-6xl items-center justify-center">
+    <div class="grid w-full max-w-5xl gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+      <div
+        class="hidden rounded-[2rem] border border-white/60 bg-slate-950 p-10 text-white shadow-[0_30px_80px_rgba(15,23,42,0.28)] lg:flex lg:flex-col lg:justify-between"
+      >
+        <div>
+          <span
+            class="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200"
+          >
+            Admin Access
+          </span>
+          <h1 class="mt-6 text-4xl font-semibold leading-tight">
+            Secure settings control for your business website.
+          </h1>
+          <p class="mt-4 max-w-md text-sm leading-7 text-slate-300">
+            Sign in to manage company details shown across the site. Public pages remain unchanged,
+            and only authenticated admins can reach the settings area.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+          <p class="text-sm font-semibold text-white">Temporary admin credentials</p>
+          <p class="mt-3 text-sm text-slate-300">Username: <span class="font-semibold text-cyan-200">Admin</span></p>
+          <p class="mt-1 text-sm text-slate-300">Password: <span class="font-semibold text-cyan-200">Admin@123</span></p>
+        </div>
+      </div>
+
+      <div
+        class="rounded-[2rem] border border-slate-200/70 bg-white/90 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-8"
+      >
+        <div class="mb-8">
+          <span
+            class="inline-flex rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-600"
+          >
+            Admin Login
+          </span>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950">Welcome back</h2>
+          <p class="mt-3 text-sm leading-6 text-slate-500">
+            Use your admin credentials to access the protected settings page.
+          </p>
+        </div>
+
+        <form class="space-y-5" [formGroup]="loginForm" (ngSubmit)="submit()">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700" for="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              formControlName="username"
+              autocomplete="username"
+              class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+              placeholder="Enter admin username"
+            />
+            @if (hasError('username')) {
+              <p class="text-sm text-rose-600">Username is required.</p>
+            }
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-slate-700" for="password">Password</label>
+            <div class="relative">
+              <input
+                id="password"
+                [type]="showPassword() ? 'text' : 'password'"
+                formControlName="password"
+                autocomplete="current-password"
+                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-14 text-sm text-slate-900 outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+                placeholder="Enter password"
+              />
+              <button
+                type="button"
+                class="absolute inset-y-2 right-2 rounded-xl px-3 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
+                (click)="togglePasswordVisibility()"
+              >
+                {{ showPassword() ? 'Hide' : 'Show' }}
+              </button>
+            </div>
+            @if (hasError('password')) {
+              <p class="text-sm text-rose-600">Password is required.</p>
+            }
+          </div>
+
+          @if (errorMessage()) {
+            <div class="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+              {{ errorMessage() }}
+            </div>
+          }
+
+          <button
+            type="submit"
+            class="inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+            [disabled]="isSubmitting()"
+          >
+            @if (isSubmitting()) {
+              <span
+                class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+              ></span>
+              <span>Signing in...</span>
+            } @else {
+              <span>Login to Admin</span>
+            }
+          </button>
+        </form>
+
+        <div
+          class="mt-8 rounded-3xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 lg:hidden"
+        >
+          <p class="font-semibold text-slate-900">Temporary credentials</p>
+          <p class="mt-2">Username: <span class="font-semibold">Admin</span></p>
+          <p>Password: <span class="font-semibold">Admin@123</span></p>
+        </div>
+
+        <a
+          routerLink="/"
+          class="mt-6 inline-flex text-sm font-medium text-slate-500 transition hover:text-slate-900"
+        >
+          Back to website
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
