@@ -141,15 +141,80 @@
             </div>
 
             <div class="space-y-2 md:col-span-2">
-              <label class="text-sm font-medium text-slate-700" for="businessHours">Business Hours</label>
-              <textarea
-                id="businessHours"
-                rows="4"
-                formControlName="businessHours"
-                class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
-              ></textarea>
-              @if (hasError('businessHours')) {
-                <p class="text-sm text-rose-600">Business hours are required.</p>
+              <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <label class="text-sm font-medium text-slate-700" for="businessHours">Business Hours</label>
+                <p class="text-xs text-slate-500">Saved automatically as the existing business-hours text field.</p>
+              </div>
+
+              <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50/70 p-4 sm:p-5">
+                <div class="hidden md:grid md:grid-cols-[minmax(0,1.2fr)_auto_minmax(0,1fr)_minmax(0,1fr)] md:gap-4 md:px-2 md:pb-3">
+                  <span class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Day</span>
+                  <span class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Status</span>
+                  <span class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Open</span>
+                  <span class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Close</span>
+                </div>
+
+                <div class="space-y-3">
+                  @for (row of businessHoursRows(); track businessHoursDays[$index].label; let i = $index) {
+                    <div
+                      class="rounded-[1.25rem] border border-slate-200 bg-white p-4 shadow-sm md:grid md:grid-cols-[minmax(0,1.2fr)_auto_minmax(0,1fr)_minmax(0,1fr)] md:items-center md:gap-4"
+                      [formGroup]="row"
+                    >
+                      <div class="mb-3 md:mb-0">
+                        <p class="text-sm font-semibold text-slate-900">{{ businessHoursDays[i].label }}</p>
+                        <p class="mt-1 text-xs text-slate-500">
+                          {{ row.controls.enabled.value ? 'Set opening and closing time.' : 'Closed for the day.' }}
+                        </p>
+                      </div>
+
+                      <label class="mb-3 inline-flex items-center gap-3 md:mb-0">
+                        <input
+                          type="checkbox"
+                          formControlName="enabled"
+                          class="h-4 w-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
+                          (change)="onBusinessDayToggle(i)"
+                        />
+                        <span class="text-sm font-medium text-slate-700">
+                          {{ row.controls.enabled.value ? 'Open' : 'Closed' }}
+                        </span>
+                      </label>
+
+                      <div class="space-y-2 md:space-y-0">
+                        <label class="mb-1 block text-xs font-medium uppercase tracking-[0.16em] text-slate-500 md:hidden">
+                          Open Time
+                        </label>
+                        <input
+                          type="time"
+                          formControlName="openTime"
+                          class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+                          [disabled]="!row.controls.enabled.value"
+                        />
+                      </div>
+
+                      <div class="mt-3 space-y-2 md:mt-0 md:space-y-0">
+                        <label class="mb-1 block text-xs font-medium uppercase tracking-[0.16em] text-slate-500 md:hidden">
+                          Close Time
+                        </label>
+                        <input
+                          type="time"
+                          formControlName="closeTime"
+                          class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+                          [disabled]="!row.controls.enabled.value"
+                        />
+                      </div>
+
+                      @if (hasBusinessHoursRowError(i)) {
+                        <div class="mt-3 md:col-span-4 md:mt-2">
+                          <p class="text-sm text-rose-600">{{ getBusinessHoursRowMessage(i) }}</p>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+
+              @if (businessHoursForm.hasError('noBusinessHoursDayEnabled') && (businessHoursForm.touched || businessHoursForm.dirty)) {
+                <p class="text-sm text-rose-600">Enable at least one business day.</p>
               }
             </div>
           </div>
