@@ -10,6 +10,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const token = authService.getToken();
 
+  debugger
   const authorizedRequest =
     token && req.url.startsWith('/api')
       ? req.clone({
