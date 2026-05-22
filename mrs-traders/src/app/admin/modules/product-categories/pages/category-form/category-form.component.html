@@ -1,0 +1,100 @@
+<div class="rounded-[2rem] border border-white/70 bg-white/90 p-6 shadow-[0_30px_80px_rgba(15,23,42,0.12)] backdrop-blur sm:p-8">
+  <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <div>
+      <span
+        class="inline-flex rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-700"
+      >
+        Product Category Master
+      </span>
+      <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950">{{ pageTitle() }}</h2>
+      <p class="mt-2 text-sm leading-6 text-slate-500">
+        Create and maintain product categories used across the admin panel.
+      </p>
+    </div>
+
+    <a
+      routerLink="/admin/product-categories"
+      class="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+    >
+      Back to Categories
+    </a>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex min-h-72 flex-col items-center justify-center gap-4 text-slate-500">
+      <span class="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-slate-900"></span>
+      <p class="text-sm font-medium">Loading category form...</p>
+    </div>
+  } @else {
+    <form class="space-y-6" [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+      @if (errorMessage()) {
+        <div class="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          {{ successMessage() }}
+        </div>
+      }
+
+      <div class="grid gap-5 md:grid-cols-2">
+        <div class="space-y-2 md:col-span-2">
+          <label class="text-sm font-medium text-slate-700" for="categoryName">Category Name</label>
+          <input
+            id="categoryName"
+            type="text"
+            formControlName="categoryName"
+            class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+          />
+          @if (hasError('categoryName')) {
+            <p class="text-sm text-rose-600">Category name is required.</p>
+          }
+        </div>
+
+        <div class="space-y-2 md:col-span-2">
+          <label class="text-sm font-medium text-slate-700" for="description">Description</label>
+          <textarea
+            id="description"
+            rows="5"
+            formControlName="description"
+            class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100"
+          ></textarea>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-sm font-medium text-slate-700" for="isActive">Active Status</label>
+          <label class="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3">
+            <input
+              id="isActive"
+              type="checkbox"
+              formControlName="isActive"
+              class="h-4 w-4 rounded border-slate-300 text-cyan-600 focus:ring-cyan-500"
+            />
+            <span class="text-sm font-medium text-slate-700">
+              {{ categoryForm.controls.isActive.value ? 'Active' : 'Inactive' }}
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 sm:flex-row sm:justify-end">
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+          (click)="cancel()"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+          [disabled]="isSubmitting()"
+        >
+          {{ isSubmitting() ? 'Saving...' : submitLabel() }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

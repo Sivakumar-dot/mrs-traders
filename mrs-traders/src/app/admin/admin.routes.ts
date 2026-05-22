@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { adminGuard } from './guards/admin.guard';
+import { productCategoryRoutes } from './modules/product-categories/routes/product-category.routes';
 
 export const adminRoutes: Routes = [
   {
@@ -41,17 +42,34 @@ export const adminRoutes: Routes = [
         loadComponent: () =>
           import('./pages/gallery/gallery.component').then((m) => m.AdminGalleryComponent)
       },
-      {
-        path: 'product-categories',
-        loadComponent: () =>
-          import('./pages/product-categories/product-categories.component').then(
-            (m) => m.AdminProductCategoriesComponent
-          )
-      },
+      ...productCategoryRoutes,
       {
         path: 'products',
         loadComponent: () =>
-          import('./pages/products/admin-products.component').then((m) => m.AdminProductsComponent)
+          import('./modules/products/pages/product-list/product-list.component').then(
+            (m) => m.ProductListComponent
+          )
+      },
+      {
+        path: 'products/new',
+        loadComponent: () =>
+          import('./modules/products/pages/product-form/product-form.component').then(
+            (m) => m.ProductFormComponent
+          )
+      },
+      {
+        path: 'products/:id',
+        loadComponent: () =>
+          import('./modules/products/pages/product-view/product-view.component').then(
+            (m) => m.ProductViewComponent
+          )
+      },
+      {
+        path: 'products/:id/edit',
+        loadComponent: () =>
+          import('./modules/products/pages/product-form/product-form.component').then(
+            (m) => m.ProductFormComponent
+          )
       }
     ]
   }

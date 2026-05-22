@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 interface AdminNavigationItem {
   label: string;
   route: string;
+  exact?: boolean;
 }
 
 @Component({
@@ -22,19 +23,23 @@ export class AdminLayoutComponent {
   protected readonly navigationItems = computed<AdminNavigationItem[]>(() => [
     {
       label: 'Company Basic Details',
-      route: '/admin/company-basic-details'
+      route: '/admin/company-basic-details',
+      exact: true
     },
     {
       label: 'Gallery',
-      route: '/admin/gallery'
+      route: '/admin/gallery',
+      exact: true
     },
     {
       label: 'Product Categories',
-      route: '/admin/product-categories'
+      route: '/admin/product-categories',
+      exact: true
     },
     {
       label: 'Products',
-      route: '/admin/products'
+      route: '/admin/products',
+      exact: false
     }
   ]);
 

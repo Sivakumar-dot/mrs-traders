@@ -26,7 +26,7 @@
           <a
             [routerLink]="item.route"
             routerLinkActive="border-cyan-200 bg-cyan-50 text-cyan-800 shadow-[0_14px_30px_rgba(8,145,178,0.12)]"
-            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLinkActiveOptions]="{ exact: item.exact ?? true }"
             class="flex items-center rounded-2xl border border-transparent px-4 py-3 text-sm font-semibold text-slate-600 transition hover:border-slate-200 hover:bg-slate-50 hover:text-slate-900"
           >
             {{ item.label }}

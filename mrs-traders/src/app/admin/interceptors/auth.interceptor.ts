@@ -11,8 +11,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const token = authService.getToken();
   const apiUrl = environment.apiUrl;
+  const isAdminLoginRequest =
+    req.url.startsWith(`${apiUrl}/admin/login`) || req.url.startsWith('/api/admin/login');
   const isProtectedAdminApiRequest =
-    req.url.startsWith(`${apiUrl}/company`) || req.url.startsWith('/api/company');
+    !isAdminLoginRequest && (req.url.startsWith(apiUrl) || req.url.startsWith('/api'));
 
   const authorizedRequest =
     token && isProtectedAdminApiRequest
