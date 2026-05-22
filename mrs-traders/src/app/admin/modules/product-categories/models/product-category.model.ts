@@ -11,11 +11,14 @@ export interface ProductCategoryListResponse {
   success: boolean;
   message?: string;
   data: ProductCategory[];
-  pagination: {
-    page: number;
-    limit: number;
-    totalRecords: number;
-    totalPages: number;
+  totalRecords?: number;
+  currentPage?: number;
+  pageSize?: number;
+  pagination?: {
+    page?: number;
+    limit?: number;
+    totalRecords?: number;
+    totalPages?: number;
   };
 }
 

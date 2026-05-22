@@ -53,10 +53,17 @@ export class CategoryListComponent {
       )
       .subscribe({
         next: (response) => {
+          const totalRecords = response.totalRecords ?? response.pagination?.totalRecords ?? 0;
+          const currentPage = response.currentPage ?? response.pagination?.page ?? 1;
+          const pageSize = response.pageSize ?? response.pagination?.limit ?? this.pageSize();
+          const totalPages =
+            response.pagination?.totalPages ??
+            (pageSize > 0 ? Math.ceil(totalRecords / pageSize) : 0);
+
           this.categories.set(response.data ?? []);
-          this.totalRecords.set(response.pagination?.totalRecords ?? 0);
-          this.totalPages.set(response.pagination?.totalPages ?? 0);
-          this.currentPage.set(response.pagination?.page ?? 1);
+          this.totalRecords.set(totalRecords);
+          this.totalPages.set(totalPages);
+          this.currentPage.set(currentPage);
         },
         error: (error: HttpErrorResponse) => {
           this.categories.set([]);

@@ -64,7 +64,7 @@
               >
                 <option value="">Select category</option>
                 @for (category of categoryOptions(); track category._id) {
-                  <option [value]="category._id">{{ category.name }}</option>
+                  <option [value]="category._id">{{ category.categoryName || category.name }}</option>
                 }
               </select>
               @if (hasError('categoryId')) {

@@ -1,6 +1,7 @@
 export interface ProductCategoryOption {
   _id: string;
-  name: string;
+  name?: string;
+  categoryName?: string;
 }
 
 export interface ProductCategoryOptionsResponse {
