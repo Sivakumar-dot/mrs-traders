@@ -1,5 +1,6 @@
 export interface CompanySettings {
   companyName: string;
+  companyService: string;
   ownerName: string;
   address: string;
   mobileNumber: string;

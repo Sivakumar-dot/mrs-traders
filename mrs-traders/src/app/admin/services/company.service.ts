@@ -31,6 +31,7 @@ export class CompanyService {
   private createEmptySettings(): CompanySettings {
     return {
       companyName: '',
+      companyService: '',
       ownerName: '',
       address: '',
       mobileNumber: '',
