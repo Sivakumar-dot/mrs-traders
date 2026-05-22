@@ -31,7 +31,7 @@ export class AdminLoginComponent {
 
   constructor() {
     if (this.authService.isAuthenticated()) {
-      void this.router.navigate(['/admin/settings']);
+      void this.router.navigate(['/admin/company-basic-details']);
     }
   }
 
@@ -57,7 +57,9 @@ export class AdminLoginComponent {
             return;
           }
 
-          const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') || '/admin/settings';
+          const redirectUrl =
+            this.route.snapshot.queryParamMap.get('redirectUrl') ||
+            '/admin/company-basic-details';
           void this.router.navigateByUrl(redirectUrl);
         },
         error: (error: HttpErrorResponse) => {
