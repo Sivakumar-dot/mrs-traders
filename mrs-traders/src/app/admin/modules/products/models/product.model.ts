@@ -24,11 +24,14 @@ export interface ProductListResponse {
   success: boolean;
   message?: string;
   data: ProductListItem[];
-  pagination: {
-    page: number;
-    limit: number;
-    totalRecords: number;
-    totalPages: number;
+  totalRecords?: number;
+  currentPage?: number;
+  pageSize?: number;
+  pagination?: {
+    page?: number;
+    limit?: number;
+    totalRecords?: number;
+    totalPages?: number;
   };
 }
 

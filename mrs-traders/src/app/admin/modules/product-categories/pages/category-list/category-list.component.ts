@@ -8,11 +8,12 @@ import { debounceTime, distinctUntilChanged, finalize } from 'rxjs';
 
 import { ProductCategory } from '../../models/product-category.model';
 import { ProductCategoryService } from '../../services/product-category.service';
+import { ConfirmDialogComponent } from '../../../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-category-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ConfirmDialogComponent],
   templateUrl: './category-list.component.html'
 })
 export class CategoryListComponent {
@@ -29,6 +30,7 @@ export class CategoryListComponent {
   protected readonly pageSize = signal(10);
   protected readonly totalRecords = signal(0);
   protected readonly totalPages = signal(0);
+  protected readonly categoryPendingDelete = signal<ProductCategory | null>(null);
 
   constructor() {
     this.searchControl.valueChanges
@@ -64,6 +66,7 @@ export class CategoryListComponent {
           this.totalRecords.set(totalRecords);
           this.totalPages.set(totalPages);
           this.currentPage.set(currentPage);
+          this.pageSize.set(pageSize);
         },
         error: (error: HttpErrorResponse) => {
           this.categories.set([]);
@@ -81,9 +84,19 @@ export class CategoryListComponent {
   }
 
   protected deleteCategory(category: ProductCategory): void {
-    const confirmed = window.confirm(`Delete category "${category.categoryName}"?`);
+    this.categoryPendingDelete.set(category);
+  }
 
-    if (!confirmed) {
+  protected closeDeleteDialog(): void {
+    if (!this.isDeleting()) {
+      this.categoryPendingDelete.set(null);
+    }
+  }
+
+  protected confirmDeleteCategory(): void {
+    const category = this.categoryPendingDelete();
+
+    if (!category) {
       return;
     }
 
@@ -98,6 +111,7 @@ export class CategoryListComponent {
       )
       .subscribe({
         next: () => {
+          this.categoryPendingDelete.set(null);
           const shouldGoBackPage =
             this.categories().length === 1 && this.currentPage() > 1 && this.totalRecords() > 1;
 
@@ -120,6 +134,10 @@ export class CategoryListComponent {
 
     this.currentPage.set(page);
     this.loadCategories();
+  }
+
+  protected getDeleteCategoryMessage(category: ProductCategory): string {
+    return `Are you sure you want to delete "${category.categoryName}"? This action cannot be undone.`;
   }
 
   protected trackByCategoryId(_: number, category: ProductCategory): string {

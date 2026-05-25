@@ -143,3 +143,15 @@
     </div>
   }
 </div>
+
+@if (categoryPendingDelete(); as category) {
+  <app-confirm-dialog
+    title="Delete Product Category"
+    [message]="getDeleteCategoryMessage(category)"
+    confirmLabel="Delete"
+    loadingLabel="Deleting..."
+    [loading]="isDeleting() === category._id"
+    (cancel)="closeDeleteDialog()"
+    (confirm)="confirmDeleteCategory()"
+  />
+}

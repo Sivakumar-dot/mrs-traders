@@ -27,11 +27,6 @@ export class AdminLayoutComponent {
       exact: true
     },
     {
-      label: 'Gallery',
-      route: '/admin/gallery',
-      exact: true
-    },
-    {
       label: 'Product Categories',
       route: '/admin/product-categories',
       exact: true
